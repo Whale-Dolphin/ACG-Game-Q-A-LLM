@@ -2,40 +2,36 @@ import re
 
 import jieba
 import tokenizer
-from transformers import BertTokenizer, BertModel
+from transformers import AutoTokenizer, AutoModel
 import torch
 
-tokenizer = BertTokenizer.from_pretrained('bert-base-chinese')
-model = BertModel.from_pretrained('bert-base-chinese')
+tokenizer = AutoTokenizer.from_pretrained('../all-MiniLM-L6-v2')
+model = AutoModel.from_pretrained('../all-MiniLM-L6-v2')
 
-def split_text(text, words_per_segment=100, char_offset=50):
-    words = text.split()
-    
-    segments = []
-    current_position = 0
-    while current_position < len(words):
-        end_position = min(current_position + words_per_segment, len(words))
-        
-        segment = ' '.join(words[current_position:end_position])
-        segments.append(segment)
-        
-        if current_position + words_per_segment < len(words):
-            next_start = ' '.join(words[:current_position + words_per_segment]).rfind(' ', 0, char_offset)
-            current_position += len(' '.join(words[current_position:current_position + words_per_segment][:next_start]).split())
-        else:
-            break
-
-    return segments
+def split_text_to_chunks(text, max_length):
+    chunks = []
+    current_chunk = ""
+    for char in text:
+        current_chunk += char
+        if len(current_chunk) >= max_length:
+            last_natural_break = max(current_chunk.rfind(" "), current_chunk.rfind("。"), current_chunk.rfind("."), current_chunk.rfind("，"), current_chunk.rfind(","), current_chunk.rfind("（"), current_chunk.rfind("("))
+            if last_natural_break > 0:
+                chunks.append(current_chunk[:last_natural_break + 1])
+                current_chunk = current_chunk[last_natural_break + 1:]
+            else:
+                chunks.append(current_chunk)
+                current_chunk = ""
+    if current_chunk:
+        chunks.append(current_chunk)
+    return chunks
 
 def remove_special_characters(text):
-    pattern = re.compile(r'[^\w\u4e00-\u9fa5]')
+    pattern = re.compile(r'[^\w\u4e00-\u9fa5,.!?;:\'\"、，。？！；：“”‘’《》（）【】]')
     return re.sub(pattern, '', text)
 
 def Tokenizer(text):
     text_cut = "".join(jieba.cut(text))
-
     
-
     inputs = tokenizer(text_cut, return_tensors="pt",
                     padding=True, truncation=True, max_length=512)
 
@@ -43,4 +39,5 @@ def Tokenizer(text):
         outputs = model(**inputs)
         embeddings = outputs.last_hidden_state.mean(1)
 
+    embeddings = embeddings.detach().tolist()
     return embeddings

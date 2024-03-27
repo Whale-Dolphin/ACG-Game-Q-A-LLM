@@ -1,4 +1,4 @@
-import torch
+import numpy
 
 class Article:
     def __init__(self, game_id: int, post_id: int, f_forum_id: int, subject: str, url: str, text: str, created_at: int, like_num: int, length: int):
@@ -13,7 +13,8 @@ class Article:
         self.length = length
 
 class Vector_Paragraph(Article):
-    def __init__(self, game_id: int, post_id: int, f_forum_id: int, subject: str, url: str, text: str, created_at: int, like_num: int, length: int, vector: torch.Tensor):
-        super().__init__(game_id, post_id, f_forum_id, subject, url, created_at, like_num, length)
+    def __init__(self, game_id: int, post_id: int, f_forum_id: int, subject: str, url: str, text: str, created_at: int, like_num: int, length: int, vector: numpy.ndarray):
+        super().__init__(game_id, post_id, f_forum_id, subject, url, text, created_at, like_num, length)
         self.vector = vector
         self.text = text
+        self.length = length
