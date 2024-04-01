@@ -47,7 +47,8 @@ from vector_db import *
 #             json.dump(data_list, f)
 
 # 单线程爬虫
-def main():
+
+def Write_Json():
     data_index = []
     file_index = 0
     for i in tqdm(range(total_iterations)):
@@ -59,11 +60,10 @@ def main():
             text = remove_special_characters(result.text)
             chunks = split_text_to_chunks(text, 512)
             cut_text = []
-            print("test")
-            for i in chunks:
-                data = Vector_Paragraph(result.game_id, result.post_id, result.f_forum_id, result.subject, result.url, i, result.created_at, result.like_num, len(i), Tokenizer(i))
+            for j, i in enumerate(chunks):
+                post_id = result.post_id + str(j).zfill(2)
+                data = Vector_Paragraph(result.game_id, post_id, result.f_forum_id, result.subject, result.url, i, result.created_at, result.like_num, len(i), Tokenizer(i))
                 cut_text.append(data.__dict__)
-            print("test")
             data_index.append(cut_text)
 
         if len(data_index) == 200 or i == total_iterations - 1: 
@@ -71,7 +71,18 @@ def main():
             file_index += 1
             with open(file_name, 'w') as f:
                 json.dump(data_index, f)
-            data_index.clear() 
+            data_index.clear()
+
+
+def main():
+    Write_Json()
+
+    folder_path = 'data'
+    files = os.listdir(folder_path)
+    for file_name in files:
+        file_path = os.path.join(folder_path, file_name)
+        if os.path.isfile(file_path):
+            Zilliz_Upload(file_path)    
 
 if __name__ == "__main__":
     main()

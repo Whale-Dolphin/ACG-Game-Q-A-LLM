@@ -36,14 +36,11 @@ def Clawler(input_post_id, input_f_forum_id, ss_config = None):
     }
 
     response = requests.get(url, params=params, headers=headers)
-    # if response.status_code == 200:
-    #     html = response.text
-    # else:
-    #     return None
     html = response.text
     data = json.loads(html)
 
-    # print(data)
+    time.sleep(2)
+
     if data['data'] == None:
         return None
 
@@ -61,12 +58,12 @@ def Clawler(input_post_id, input_f_forum_id, ss_config = None):
 
     target = Article(game_id, post_id, f_forum_id, subject,
                  url, text, created_at, like_num, length)
-    
-    time.sleep(2)
 
-    # print(f"subject{target.subject}")
-    # print(f'f_forum_id:{target.f_forum_id}')
     if target.f_forum_id != input_f_forum_id:
+        return None
+    elif len(target.text) < 100:
+        return None
+    elif target.like_num < 50:
         return None
     else:
         print('success!')

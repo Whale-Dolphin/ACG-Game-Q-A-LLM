@@ -1,21 +1,38 @@
-# 使用milvus在线库zilliz储存在云端
-# import json
+import json
+import os
 
-# from pymilvus import MilvusClient
+from pymilvus import MilvusClient
 
-# from config import *
+from config import *
 
-# def Zilliz_Upload(data):
-#     client = MilvusClient(
-#         # Cluster endpoint obtained from the console
-#         uri = zilliz_uri,
-#         # API key or a colon-separated cluster username and password
-#         token = zilliz_api,
-#     )
+import os
 
-#     res = client.insert(
-#         collection_name = "miyoushe_articles",
-#         data = data
-#     )
+def Zilliz_Upload(data_path):
+    COLLECTION_NAME = 'miyouoshe_guide'
+    client = MilvusClient(
+        uri=CLUSTER_ENDPOINT, # Cluster endpoint obtained from the console
+        token=ZILLIZ_TOKEN # API key or a colon-separated cluster username and password
+    )
 
-# 使用langchain自带的Chroma储存在本地
+    with open(data_path, 'r') as f:
+        data = json.load(f)
+    
+    for i in data:
+        for j in i:
+            j['post_id'] = int(j['post_id'])
+
+        res = client.insert(
+            collection_name = COLLECTION_NAME,
+            data = {
+                'id': i['post_id'],
+                'game_id': i['game_id'],
+                'f_forum_id': i['f_forum_id'],
+                'subject': i['subject'],
+                'url': i['url'],
+                'text': i['text'],
+                'created_at': i['created_at'],
+                'like_num': i['like_num'],
+                'length': i['length'],
+                'vector': i['vector'][0]
+            }
+        )
