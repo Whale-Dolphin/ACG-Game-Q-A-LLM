@@ -7,7 +7,7 @@ from shadowsocks import encrypt
 
 from utils import *
 
-def Clawler(input_post_id, input_f_forum_id, ss_config = None):
+def Clawler(input_post_id, input_f_forum_id, ss_config = None, proxy_info = None):
     if ss_config is not None:
         crypto = encrypt.Encryptor(ss_config["password"], ss_config["method"])
 
@@ -16,7 +16,13 @@ def Clawler(input_post_id, input_f_forum_id, ss_config = None):
             "https": f"socks5://{ss_config['server']}:{ss_config['port']}"
         }
 
-    url = 'https://bbs-api.miyoushe.com/post/wapi/getPostFull'
+    if proxy_info is not None:
+        proxies = proxies = {
+            'http': f'http://{proxy_info["server"]}:{proxy_info["port"]}',
+            'https': f'http://{proxy_info["server"]}:{proxy_info["port"]}'
+        }
+
+    url = 'http://bbs-api.miyoushe.com/post/wapi/getPostFull'
 
     params = {
         'gids': '2',
@@ -34,12 +40,17 @@ def Clawler(input_post_id, input_f_forum_id, ss_config = None):
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0',
         'sec-ch-ua': '"Chromium";v="122", "Not(A:Brand";v="24", "Microsoft Edge";v="122"',
     }
-
-    response = requests.get(url, params=params, headers=headers)
+    
+    if proxy_info is not None:
+        response = requests.get(url, params=params, headers=headers, proxies=proxies)
+    else:
+        response = requests.get(url, params=params, headers=headers)
     html = response.text
+    print('test_01')
     data = json.loads(html)
+    print('test_02')
 
-    time.sleep(2)
+    time.sleep(1)
 
     if data['data'] == None:
         return None

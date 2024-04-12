@@ -18,8 +18,7 @@ def Zilliz_Upload(data_path):
         data = json.load(f)
     
     for i in data:
-        for j in i:
-            j['post_id'] = int(j['post_id'])
+        i['post_id'] = int(i['post_id'])
 
         res = client.insert(
             collection_name = COLLECTION_NAME,
