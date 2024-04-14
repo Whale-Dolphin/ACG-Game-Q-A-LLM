@@ -6,6 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 from shadowsocks import encrypt
 
+from config import *
 from utils import *
 
 log_format = "%(asctime)s - %(levelname)s - %(message)s"
@@ -30,10 +31,6 @@ def Clawler(input_post_id, input_f_forum_id, ss_config = None, proxy_info = None
             'https': f'http://{proxy_info["server"]}:{proxy_info["port"]}'
         }
 
-    tunnel = "a757.kdltps.com:15818"
-
-    username = "t11298763855356"
-    password = "x42bynmf"
     proxies = {
         "http": "http://%(user)s:%(pwd)s@%(proxy)s/" % {"user": username, "pwd": password, "proxy": tunnel},
         "https": "http://%(user)s:%(pwd)s@%(proxy)s/" % {"user": username, "pwd": password, "proxy": tunnel}
