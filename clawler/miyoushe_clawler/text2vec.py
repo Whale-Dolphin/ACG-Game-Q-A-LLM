@@ -5,9 +5,6 @@ import tokenizer
 from transformers import AutoTokenizer, AutoModel
 import torch
 
-tokenizer = AutoTokenizer.from_pretrained('../all-MiniLM-L6-v2')
-model = AutoModel.from_pretrained('../all-MiniLM-L6-v2')
-
 def split_text_to_chunks(text, max_length):
     chunks = []
     current_chunk = ""
@@ -41,3 +38,6 @@ def Tokenizer(text):
 
     embeddings = embeddings.detach().tolist()
     return embeddings
+
+tokenizer = AutoTokenizer.from_pretrained('../all-MiniLM-L6-v2')
+model = AutoModel.from_pretrained('../all-MiniLM-L6-v2', )

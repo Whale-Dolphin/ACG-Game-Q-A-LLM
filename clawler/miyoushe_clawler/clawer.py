@@ -1,11 +1,19 @@
 import json
 import time
+import logging
 
 import requests
 from bs4 import BeautifulSoup
 from shadowsocks import encrypt
 
 from utils import *
+
+log_format = "%(asctime)s - %(levelname)s - %(message)s"
+log_filename = "miyoushe_crawler.log"
+
+logging.basicConfig(level=logging.INFO, format=log_format, filename=log_filename, filemode='a')
+
+logger = logging.getLogger()
 
 def Clawler(input_post_id, input_f_forum_id, ss_config = None, proxy_info = None):
     if ss_config is not None:
@@ -17,12 +25,22 @@ def Clawler(input_post_id, input_f_forum_id, ss_config = None, proxy_info = None
         }
 
     if proxy_info is not None:
-        proxies = proxies = {
+        proxies = {
             'http': f'http://{proxy_info["server"]}:{proxy_info["port"]}',
             'https': f'http://{proxy_info["server"]}:{proxy_info["port"]}'
         }
 
-    url = 'http://bbs-api.miyoushe.com/post/wapi/getPostFull'
+    tunnel = "a757.kdltps.com:15818"
+
+    username = "t11298763855356"
+    password = "x42bynmf"
+    proxies = {
+        "http": "http://%(user)s:%(pwd)s@%(proxy)s/" % {"user": username, "pwd": password, "proxy": tunnel},
+        "https": "http://%(user)s:%(pwd)s@%(proxy)s/" % {"user": username, "pwd": password, "proxy": tunnel}
+    }
+
+
+    url = 'https://bbs-api.miyoushe.com/post/wapi/getPostFull'
 
     params = {
         'gids': '2',
@@ -31,26 +49,21 @@ def Clawler(input_post_id, input_f_forum_id, ss_config = None, proxy_info = None
     }
 
     headers = {
-        'Accept': 'application/json, text/plain, */*',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'Connection': 'keep-alive',
-        'Host': 'bbs-api.miyoushe.com',
-        'Origin': 'https://www.miyoushe.com',
         'Referer': 'https://www.miyoushe.com/',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0',
-        'sec-ch-ua': '"Chromium";v="122", "Not(A:Brand";v="24", "Microsoft Edge";v="122"',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0'
     }
-    
-    if proxy_info is not None:
-        response = requests.get(url, params=params, headers=headers, proxies=proxies)
-    else:
-        response = requests.get(url, params=params, headers=headers)
-    html = response.text
-    print('test_01')
-    data = json.loads(html)
-    print('test_02')
 
-    time.sleep(1)
+    response = requests.get(url, params=params, headers=headers, proxies=proxies)
+    
+    # if proxy_info is not None:
+    #     response = requests.get(url, params=params, headers=headers, proxies=proxies)
+    # else:
+    #     response = requests.get(url, params=params, headers=headers)
+    html = response.text
+    data = json.loads(html)
+    # print(data)
+
+    time.sleep(0.5)
 
     if data['data'] == None:
         return None
@@ -77,5 +90,5 @@ def Clawler(input_post_id, input_f_forum_id, ss_config = None, proxy_info = None
     elif target.like_num < 50:
         return None
     else:
-        print('success!')
+        logger.info(f"Successfully fetched post {post_id}")
     return target
