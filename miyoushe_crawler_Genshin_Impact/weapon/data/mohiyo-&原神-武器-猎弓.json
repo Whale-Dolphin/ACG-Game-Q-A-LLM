@@ -1,0 +1,109 @@
+{
+    "basic_info": {
+        "name": "猎弓",
+        "type": "弓",
+        "rank": 1
+    },
+    "equipment_description": {
+        "refinement": null,
+        "description": "猎手演奏的音乐由两种音色组成。弓弦颤动的声音，和羽箭破空的低啸。",
+        "adventure_rank_limit": "无",
+        "way_to_get": "弓初始武器"
+    },
+    "growth_value": {
+        "1级": {
+            "ascend_material": {
+                "凛风奔狼的始龀": "1",
+                "凛风奔狼的裂齿": "1",
+                "凛风奔狼的断牙": "1",
+                "地脉的旧枝": "1",
+                "地脉的枯叶": "6",
+                "寻宝鸦印": "6",
+                "藏银鸦印": "5",
+                "精锻用魔矿": "5",
+                "摩拉": "91987"
+            },
+            "data": {
+                "initial_base_value": {
+                    "基础攻击力": "23"
+                },
+                "average_increase_per_level": {
+                    "基础攻击力": "+1.74"
+                }
+            }
+        },
+        "20级": {
+            "ascend_material": {
+                "凛风奔狼的始龀": "1",
+                "地脉的旧枝": "1",
+                "寻宝鸦印": "1"
+            },
+            "data": {
+                "initial_base_value": {
+                    "基础攻击力（未突破）": "56",
+                    "基础攻击力（突破后）": "68"
+                },
+                "average_increase_per_level": {
+                    "基础攻击力": "+1.70"
+                }
+            }
+        },
+        "40级": {
+            "ascend_material": {
+                "凛风奔狼的裂齿": "1",
+                "地脉的旧枝": "1",
+                "寻宝鸦印": "2"
+            },
+            "data": {
+                "initial_base_value": {
+                    "基础攻击力（未突破）": "102",
+                    "基础攻击力（突破后）": "113"
+                },
+                "average_increase_per_level": {
+                    "基础攻击力": "+1.70"
+                }
+            }
+        },
+        "50级": {
+            "ascend_material": {
+                "凛风奔狼的裂齿": "2",
+                "地脉的枯叶": "2",
+                "藏银鸦印": "2"
+            },
+            "data": {
+                "initial_base_value": {
+                    "基础攻击力（未突破）": "130",
+                    "基础攻击力（突破后）": "141"
+                },
+                "average_increase_per_level": {
+                    "基础攻击力": "+1.70"
+                }
+            }
+        },
+        "60级": {
+            "ascend_material": {
+                "凛风奔狼的断牙": "1",
+                "地脉的枯叶": "1",
+                "藏银鸦印": "3"
+            },
+            "data": {
+                "initial_base_value": {
+                    "基础攻击力（突破后）": "169"
+                },
+                "average_increase_per_level": {
+                    "基础攻击力": "+1.60"
+                }
+            }
+        },
+        "70级": {
+            "ascend_material": "无",
+            "data": {
+                "initial_base_value": {
+                    "基础攻击力": "185"
+                },
+                "average_increase_per_level": "无"
+            }
+        }
+    },
+    "related_story": "传说过去在蒙德,曾经有利用弓弦奏乐，或者说利用乐器的琴弦放箭的流浪乐手。但那只不过是遥远古代的民间传说罢了。"
+}

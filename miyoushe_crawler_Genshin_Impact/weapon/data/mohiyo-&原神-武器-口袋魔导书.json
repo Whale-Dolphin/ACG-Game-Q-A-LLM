@@ -1,0 +1,110 @@
+{
+    "basic_info": {
+        "name": "口袋魔导书",
+        "type": "法器",
+        "rank": 2
+    },
+    "equipment_description": {
+        "refinement": null,
+        "description": "精心编纂，只留下考试重点的魔导参考小册。",
+        "adventure_rank_limit": "无",
+        "way_to_get": "宝箱、铁匠铺商店"
+    },
+    "growth_value": {
+        "1级": {
+            "ascend_material": {
+                "高塔孤王的破瓦": "1",
+                "高塔孤王的残垣": "1",
+                "高塔孤王的断片": "1",
+                "沉重号角": "1",
+                "黑铜号角": "8",
+                "破损的面具": "8",
+                "污秽的面具": "7",
+                "精锻用魔矿": "7",
+                "摩拉": "142967"
+            },
+            "data": {
+                "initial_base_value": {
+                    "基础攻击力": "33"
+                },
+                "average_increase_per_level": {
+                    "基础攻击力": "+2.47"
+                }
+            }
+        },
+        "20级": {
+            "ascend_material": {
+                "高塔孤王的破瓦": "1",
+                "沉重号角": "1",
+                "破损的面具": "1"
+            },
+            "data": {
+                "initial_base_value": {
+                    "基础攻击力（未突破）": "80",
+                    "基础攻击力（突破后）": "91"
+                },
+                "average_increase_per_level": {
+                    "基础攻击力": "+2.40"
+                }
+            }
+        },
+        "40级": {
+            "ascend_material": {
+                "高塔孤王的残垣": "1",
+                "沉重号角": "1",
+                "破损的面具": "4"
+            },
+            "data": {
+                "initial_base_value": {
+                    "基础攻击力（未突破）": "139",
+                    "基础攻击力（突破后）": "151"
+                },
+                "average_increase_per_level": {
+                    "基础攻击力": "+2.30"
+                }
+            }
+        },
+        "50级": {
+            "ascend_material": {
+                "高塔孤王的残垣": "3",
+                "黑铜号角": "3",
+                "污秽的面具": "3"
+            },
+            "data": {
+                "initial_base_value": {
+                    "基础攻击力（未突破）": "174",
+                    "基础攻击力（突破后）": "186"
+                },
+                "average_increase_per_level": {
+                    "基础攻击力": "+2.30"
+                }
+            }
+        },
+        "60级": {
+            "ascend_material": {
+                "高塔孤王的断片": "1",
+                "黑铜号角": "1",
+                "污秽的面具": "4"
+            },
+            "data": {
+                "initial_base_value": {
+                    "基础攻击力（未突破）": "209",
+                    "基础攻击力（突破后）": "220"
+                },
+                "average_increase_per_level": {
+                    "基础攻击力": "+2.30"
+                }
+            }
+        },
+        "70级": {
+            "ascend_material": "无",
+            "data": {
+                "initial_base_value": {
+                    "基础攻击力": "243"
+                },
+                "average_increase_per_level": "无"
+            }
+        }
+    },
+    "related_story": "在学徒当中流行的魔导辅导书,可以装在口袋里的尺寸。略去了教科书中冗长的原理与习题,只留下会考的内容。目前因为《魔导绪论》第十二版的改动而变得不合时宜。"
+}
